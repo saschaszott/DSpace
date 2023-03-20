@@ -1341,7 +1341,7 @@ var file_main_dir = 'do-files';
 if(entity_type_var == 'OrgUnit'){
    file_main_dir = 'ou-files';
 } else if(entity_type_var == 'Project'){
-   file_main_dir = 'pj-files';
+   file_main_dir = 'rg-files';
 } else if(entity_type_var == 'Person'){
    file_main_dir = 'rp-files';
 }
