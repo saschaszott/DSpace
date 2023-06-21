@@ -168,7 +168,7 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService 
                                 String locale) {
         ChoiceAuthority ma = getAuthorityByFieldKeyCollection(fieldKey, dsoType, collection);
         if (ma == null) {
-            String errorMessage = "No choices plugin was configured for  field \"" + fieldKey + "\"";
+            String errorMessage = "No choices plugin was configured for field \"" + fieldKey + "\"";
             if (collection != null) {
                 errorMessage = errorMessage + ", collection=" + collection.getID().toString();
             }
@@ -188,7 +188,7 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService 
         ChoiceAuthority ma = getAuthorityByFieldKeyCollection(fieldKey, dsoType, collection);
         if (ma == null) {
             throw new IllegalArgumentException(
-                "No choices plugin was configured for  field \"" + fieldKey
+                "No choices plugin was configured for field \"" + fieldKey
                     + "\", collection=" + collection.getID().toString() + ".");
         }
         return ma.getLabel(authKey, locale);
@@ -220,7 +220,7 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService 
         ChoiceAuthority ma = getAuthorityByFieldKeyCollection(fieldKey, dsoType, collection);
         if (ma == null) {
             throw new IllegalArgumentException(
-                "No choices plugin was configured for  field \"" + fieldKey
+                "No choices plugin was configured for field \"" + fieldKey
                     + "\", collection=" + collection.getID().toString() + ".");
         }
         if (ma instanceof AuthorityVariantsSupport) {
@@ -621,7 +621,7 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService 
     public String getLinkedEntityType(String fieldKey) {
         ChoiceAuthority ma = getAuthorityByFieldKeyCollection(fieldKey, Constants.ITEM, null);
         if (ma == null) {
-            throw new IllegalArgumentException("No choices plugin was configured for  field \"" + fieldKey + "\".");
+            throw new IllegalArgumentException("No choices plugin was configured for field \"" + fieldKey + "\".");
         }
         if (ma instanceof LinkableEntityAuthority) {
             return ((LinkableEntityAuthority) ma).getLinkedEntityType();
