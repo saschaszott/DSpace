@@ -12,4 +12,4 @@
 -----------------------------------------------------------------------------------
 
 UPDATE subscription SET dspace_object_id = (SELECT uuid FROM community WHERE community_id = subscription.community_id) WHERE community_id IS NOT NULL;
-ALTER TABLE subscription DROP COLUMN community_id;
+ALTER TABLE subscription DROP COLUMN IF EXISTS community_id;
