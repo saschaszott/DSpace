@@ -21,6 +21,7 @@ public class HSUCommunityUpdates extends CommunityUpdates {
      * @return
      * @throws SearchServiceException
      */
+    @Override
     public List<IndexableObject> findUpdates(Context context, DSpaceObject dSpaceObject, String frequency)
             throws SearchServiceException {
         DiscoverQuery discoverQuery = new DiscoverQuery();
