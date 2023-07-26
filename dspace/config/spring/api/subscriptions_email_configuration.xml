@@ -61,8 +61,8 @@
         <value>dc.title</value>
     </util:list>
 
-    <bean id="communityUpdates" class="org.dspace.subscriptions.objectupdates.CommunityUpdates" />
+    <bean id="communityUpdates" class="org.dspace.subscriptions.objectupdates.HSUCommunityUpdates" />
 
-    <bean id="collectionUpdates" class="org.dspace.subscriptions.objectupdates.CollectionUpdates" />
+    <bean id="collectionUpdates" class="org.dspace.subscriptions.objectupdates.HSUCollectionUpdates" />
 
 </beans>
