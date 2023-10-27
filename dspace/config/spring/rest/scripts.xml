@@ -88,7 +88,12 @@
         <property name="description" value="Script to import CRIS layout configuration from excel file"/>
         <property name="dspaceRunnableClass" value="org.dspace.layout.script.CrisLayoutToolScript"/>
     </bean>
-    
+
+    <bean id="export-cris-layout-tool" class="org.dspace.layout.script.ExportCrisLayoutToolScriptConfiguration" primary="true">
+        <property name="description" value="Script to export CRIS layout configuration into excel file"/>
+        <property name="dspaceRunnableClass" value="org.dspace.layout.script.ExportCrisLayoutToolScript"/>
+    </bean>
+
     <bean name="metadata-export-search" class="org.dspace.app.bulkedit.MetadataExportSearchScriptConfiguration">
         <property name="description" value="export metadata from a discovery search" />
         <property name="dspaceRunnableClass" value="org.dspace.app.bulkedit.MetadataExportSearch" />
@@ -102,5 +107,10 @@
     <bean id="export" class="org.dspace.app.itemexport.ItemExportScriptConfiguration" primary="true">
         <property name="description" value="Batch Export to Simple Archive Format (SAF)"/>
         <property name="dspaceRunnableClass" value="org.dspace.app.itemexport.ItemExport"/>
+    </bean>
+
+    <bean id="export-schema" class="org.dspace.app.metadata.export.MetadataSchemaExportScriptConfiguration" primary="true">
+        <property name="description" value="Exports a given schema into a registry xml-format file"/>
+        <property name="dspaceRunnableClass" value="org.dspace.app.metadata.export.MetadataSchemaExportScript"/>
     </bean>
 </beans>

@@ -158,8 +158,8 @@ public class DCInputsReader {
      * Returns the set of DC inputs used for a particular collection, or the default
      * set if no inputs defined for the collection
      *
-     * @param collectionHandle collection
-     * @return DC input set
+     * @param  collection              collection
+     * @return                         DC input set
      * @throws DCInputsReaderException if no default set defined
      * @throws ServletException
      */
@@ -316,6 +316,9 @@ public class DCInputsReader {
 
         // cache miss - construct new DCInputSet
         List<List<Map<String, String>>> pages = formDefns.get(formName);
+        if (pages == null) {
+            return results;
+        }
 
         Iterator<List<Map<String, String>>> iterator = pages.iterator();
 

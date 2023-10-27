@@ -9,6 +9,8 @@ package org.dspace.content.security;
 
 import java.util.List;
 
+import org.dspace.content.logic.Filter;
+
 /**
  * Interface to be extended for the configuration related to access item modes.
  *
@@ -18,11 +20,11 @@ import java.util.List;
 public interface AccessItemMode {
 
     /**
-     * Returns the configured security.
+     * Returns the configured securities.
      *
-     * @return the configured security
+     * @return the configured securities
      */
-    public CrisSecurity getSecurity();
+    public List<CrisSecurity> getSecurities();
 
     /**
      * Returns the configured group metadata fields for the CUSTOM security.
@@ -50,4 +52,6 @@ public interface AccessItemMode {
      * @return the group list
      */
     public List<String> getGroups();
+
+    public Filter getAdditionalFilter();
 }

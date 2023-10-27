@@ -10,6 +10,7 @@ package org.dspace.content.integration.crosswalks.script;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.apache.commons.cli.ParseException;
@@ -65,8 +66,9 @@ public class ItemExport extends DSpaceRunnable<ItemExportScriptConfiguration<Ite
     @Override
     public void internalRun() throws Exception {
 
-        context = new Context();
+        context = new Context(Context.Mode.READ_ONLY);
         assignCurrentUserInContext();
+        assignHandlerLocaleInContext();
         assignSpecialGroupsInContext();
 
         if (exportFormat == null) {
@@ -107,6 +109,7 @@ public class ItemExport extends DSpaceRunnable<ItemExportScriptConfiguration<Ite
         streamDisseminationCrosswalk.disseminate(context, item, out);
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
         String name = getFileName(streamDisseminationCrosswalk);
+        context.setMode(Context.Mode.READ_WRITE);
         handler.writeFilestream(context, name, in, streamDisseminationCrosswalk.getMIMEType(),
                 streamDisseminationCrosswalk.isPubliclyReadable());
         handler.logInfo("Item exported successfully into file named " + name);
@@ -136,6 +139,16 @@ public class ItemExport extends DSpaceRunnable<ItemExportScriptConfiguration<Ite
     private void assignSpecialGroupsInContext() throws SQLException {
         for (UUID uuid : handler.getSpecialGroups()) {
             context.setSpecialGroup(uuid);
+        }
+    }
+
+    private void assignHandlerLocaleInContext() {
+        if (Objects.nonNull(this.handler) &&
+            Objects.nonNull(this.context) &&
+            Objects.nonNull(this.handler.getLocale()) &&
+            !this.handler.getLocale().equals(this.context.getCurrentLocale())
+        ) {
+            this.context.setCurrentLocale(this.handler.getLocale());
         }
     }
 
