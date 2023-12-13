@@ -139,6 +139,10 @@ public class EmbeddablePlumXMetricProvider extends AbstractEmbeddableMetricProvi
 
     @Override
     public boolean hasMetric(Context context, Item item, List<CrisMetrics> retrivedStoredMetrics) {
+        if (!super.hasMetric(context, item, retrivedStoredMetrics)) {
+            return false;
+        }
+        
         String entityType = getEntityType(item);
         if (entityType != null) {
             if (entityType.equals("Person")) {
@@ -162,8 +166,6 @@ public class EmbeddablePlumXMetricProvider extends AbstractEmbeddableMetricProvi
                     }
                 }
             }
-        } else {
-            return false;
         }
         return false;
     }
