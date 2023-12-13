@@ -139,7 +139,7 @@ public class EmbeddablePlumXMetricProvider extends AbstractEmbeddableMetricProvi
 
     @Override
     public boolean hasMetric(Context context, Item item, List<CrisMetrics> retrivedStoredMetrics) {
-        if (!super.hasMetric(context, item, retrivedStoredMetrics)) {
+        if (!this.isEnabled()) {
             return false;
         }
         
