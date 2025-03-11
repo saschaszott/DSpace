@@ -17,7 +17,7 @@
    <parent>
       <groupId>org.dspace</groupId>
       <artifactId>modules</artifactId>
-      <version>cris-2024.02.00-SNAPSHOT</version>
+      <version>cris-2024.02.01-SNAPSHOT</version>
       <relativePath>..</relativePath>
    </parent>
 
@@ -336,6 +336,24 @@
            </dependencies>
        </profile>
 
+       <!-- Builds Import plus addon for DSpace -->
+        <profile>
+            <id>addon-importplus</id>
+             <activation>
+                <property>
+                   <name>importplus.on</name>
+                </property>
+             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>it.4science.dspace</groupId>
+                    <artifactId>addon-importplus</artifactId>
+                    <version>${addon-importplus.version}</version>
+                    <type>jar</type>
+                </dependency>
+            </dependencies>
+        </profile>
+
    </profiles>
 
    <!--
@@ -361,8 +379,8 @@
           <artifactId>dspace-services</artifactId>
       </dependency>
       <dependency>
-         <groupId>javax.servlet</groupId>
-         <artifactId>javax.servlet-api</artifactId>
+         <groupId>jakarta.servlet</groupId>
+         <artifactId>jakarta.servlet-api</artifactId>
          <scope>provided</scope>
       </dependency>
       <dependency>
@@ -388,6 +406,13 @@
          <artifactId>solr-core</artifactId>
          <version>${solr.client.version}</version>
          <scope>test</scope>
+         <exclusions>
+            <!-- Later version provided by Hibernate -->
+            <exclusion>
+               <groupId>org.antlr</groupId>
+               <artifactId>antlr4-runtime</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <groupId>org.apache.lucene</groupId>

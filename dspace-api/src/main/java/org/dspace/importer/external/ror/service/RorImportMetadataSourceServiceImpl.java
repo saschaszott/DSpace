@@ -15,11 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import javax.el.MethodNotFoundException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.el.MethodNotFoundException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
@@ -31,7 +31,6 @@ import org.dspace.importer.external.datamodel.Query;
 import org.dspace.importer.external.exception.MetadataSourceException;
 import org.dspace.importer.external.liveimportclient.service.LiveImportClient;
 import org.dspace.importer.external.service.AbstractImportMetadataSourceService;
-import org.dspace.importer.external.service.components.QuerySource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -40,7 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Vincenzo Mecca (vins01-4science - vincenzo.mecca at 4science.com)
  */
 public class RorImportMetadataSourceServiceImpl extends AbstractImportMetadataSourceService<String>
-    implements QuerySource {
+    implements RorImportMetadataSourceService {
 
     private final static Logger log = LogManager.getLogger();
     protected static final String ROR_IDENTIFIER_PREFIX = "https://ror.org/";

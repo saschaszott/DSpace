@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import javax.annotation.Nullable;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -188,7 +188,7 @@ public class DCInput {
         language = Boolean.parseBoolean(fieldMap.get("language"));
         valueLanguageList = new ArrayList<>();
         if (language) {
-            String languageNameTmp = fieldMap.get("value-pairs-name");
+            String languageNameTmp = fieldMap.get("language.value-pairs-name");
             if (StringUtils.isBlank(languageNameTmp)) {
                 languageNameTmp = LanguageName;
             }
@@ -206,7 +206,7 @@ public class DCInput {
         // these types are list-controlled
         if ("dropdown".equals(inputType) || "qualdrop_value".equals(inputType)
             || "list".equals(inputType)) {
-            valueListName = fieldMap.get("value-pairs-name");
+            valueListName = fieldMap.get(inputType + ".value-pairs-name");
             valueList = listMap.get(valueListName);
         }
         hint = fieldMap.get("hint");

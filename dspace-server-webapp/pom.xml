@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.dspace</groupId>
         <artifactId>dspace-parent</artifactId>
-        <version>cris-2024.02.00-SNAPSHOT</version>
+        <version>cris-2024.02.01-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
@@ -351,23 +351,6 @@
 			</dependencies>
 		</profile>
 
-	   	<profile>
-			<id>addon-dataquality</id>
-	         <activation>
-	            <property>
-	               <name>dq.on</name>
-	            </property>
-	         </activation>
-			<dependencies>
-                <dependency>
-                    <groupId>it.4science.dspace</groupId>
-                    <artifactId>addon-dataquality</artifactId>
-                    <version>${addon-dataquality.version}</version>
-                    <type>jar</type>
-                </dependency>
-			</dependencies>
-		</profile>
-
         <!-- Builds Orchestrator addon for DSpace -->
         <profile>
             <id>addon-orchestrator</id>
@@ -388,21 +371,39 @@
         
         <!-- Builds LoginMIUR addon for DSpace -->
 	   	<profile>
-			<id>addon-loginmiur</id>
-	         <activation>
-	            <property>
-	               <name>loginmiur.on</name>
-	            </property>
-	         </activation>
-			<dependencies>
-				<dependency>
-					<groupId>it.4science.dspace</groupId>
-					<artifactId>addon-loginmiur-api</artifactId>
-					<version>${addon-loginmiur.version}</version>
-					<type>jar</type>
-				</dependency>
-			</dependencies>
-		</profile>
+        <id>addon-loginmiur</id>
+             <activation>
+                <property>
+                   <name>loginmiur.on</name>
+                </property>
+             </activation>
+        <dependencies>
+          <dependency>
+            <groupId>it.4science.dspace</groupId>
+            <artifactId>addon-loginmiur-api</artifactId>
+            <version>${addon-loginmiur.version}</version>
+            <type>jar</type>
+          </dependency>
+        </dependencies>
+      </profile>
+
+        <!-- Builds Import Plus addon for DSpace -->
+      <profile>
+        <id>addon-importplus</id>
+             <activation>
+                <property>
+                   <name>importplus.on</name>
+                </property>
+             </activation>
+        <dependencies>
+          <dependency>
+            <groupId>it.4science.dspace</groupId>
+            <artifactId>addon-importplus</artifactId>
+            <version>${addon-importplus.version}</version>
+            <type>jar</type>
+          </dependency>
+        </dependencies>
+      </profile>
     </profiles>
 
 
@@ -414,6 +415,14 @@
                 <artifactId>spring-expression</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+
+            <!-- Specify the version of json-smart we want to use.
+                 This solves a version mismatch between nimbus-jose-jwt and json-path below. -->
+            <!--<dependency>
+                <groupId>net.minidev</groupId>
+                <artifactId>json-smart</artifactId>
+                <version>2.5.0</version>
+            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
@@ -490,6 +499,7 @@
             <artifactId>toastr</artifactId>
             <version>2.1.4</version>
             <exclusions>
+                <!-- We use a later version of JQuery as defined above -->
                 <exclusion>
                     <groupId>org.webjars.bowergithub.jquery</groupId>
                     <artifactId>jquery-dist</artifactId>
@@ -517,6 +527,7 @@
             <artifactId>backbone</artifactId>
             <version>1.4.1</version>
             <exclusions>
+                <!-- We use a later version of underscore as defined above -->
                 <exclusion>
                     <groupId>org.webjars.bowergithub.jashkenas</groupId>
                     <artifactId>underscore</artifactId>
@@ -547,6 +558,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring-boot.version}</version>
+            <exclusions>
+                <!-- Later version brought in by spring-boot-starter-web above -->
+                <exclusion>
+                    <groupId>io.micrometer</groupId>
+                    <artifactId>micrometer-observation</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Add in log4j support by excluding default logging, and using starter-log4j -->
@@ -644,6 +662,7 @@
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>${nimbus-jose-jwt.version}</version>
             <exclusions>
+                <!-- We pull in a later version below -->
                 <exclusion>
                     <groupId>net.minidev</groupId>
                     <artifactId>json-smart</artifactId>
@@ -651,6 +670,8 @@
             </exclusions>
         </dependency>
 
+        <!-- Specify the version of json-smart we want to use.
+             This solves a version mismatch between nimbus-jose-jwt and json-path below. -->
         <dependency>
             <groupId>net.minidev</groupId>
             <artifactId>json-smart</artifactId>
@@ -680,12 +701,25 @@
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>${ehcache.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.glassfish.jaxb</groupId>
+                    <artifactId>jaxb-runtime</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- TEST DEPENDENCIES -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Required for ITs to ensure they use Apache HttpClient in AbstractWebClientIntegrationTest -->
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.3.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -729,6 +763,13 @@
             <artifactId>solr-core</artifactId>
             <version>${solr.client.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <!-- Later version provided by Hibernate -->
+                <exclusion>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr4-runtime</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
@@ -752,8 +793,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>javax.annotation</groupId>
-          <artifactId>javax.annotation-api</artifactId>
+          <groupId>jakarta.annotation</groupId>
+          <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
     </dependencies>
 
