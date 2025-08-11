@@ -175,7 +175,8 @@ public class BitstreamDAOImpl extends AbstractHibernateDSODAO<Bitstream> impleme
             "    mfB.qualifier is null and " +
             "    mvB.value = :bundleName " +
             "  )" +
-            ")"
+            ")" +
+            " ORDER BY INDEX(bitstream)"
         );
 
         query.setParameter("itemId", itemId);
