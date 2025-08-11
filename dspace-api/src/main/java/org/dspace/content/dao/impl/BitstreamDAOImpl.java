@@ -147,7 +147,7 @@ public class BitstreamDAOImpl extends AbstractHibernateDSODAO<Bitstream> impleme
     @Override
     public Iterator<Bitstream> findShowableByItem(Context context, UUID itemId, String bundleName) throws SQLException {
         Query query = createQuery(
-            context,            
+            context,
             "select bitstream.id from Bundle bundle " +
             "join bundle.items item " +
             "join bundle.bitstreams bitstream " +
