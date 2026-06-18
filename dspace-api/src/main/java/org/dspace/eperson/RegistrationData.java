@@ -49,9 +49,9 @@ public class RegistrationData implements ReloadableEntity<Integer> {
     private String email;
 
     /**
-     * Contains the unique id generated fot the user.
+     * Contains the unique id generated for the user.
      */
-    @Column(name = "token", length = 48)
+    @Column(name = "token", length = 48, unique = true)
     private String token;
 
     /**
